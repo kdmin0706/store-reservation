@@ -1,4 +1,4 @@
-package com.example.reservation.config;
+package com.example.reservation.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
