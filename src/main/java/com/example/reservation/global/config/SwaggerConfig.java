@@ -26,7 +26,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("매장 예약 시스템")
-                .description("store reservation")
+                .description("매장 예약을 위한 API System")
                 .version("1.0.0")
                 .build();
     }
