@@ -11,6 +11,23 @@ import static com.example.reservation.global.type.ErrorCode.INTERNAL_SERVER_ERRO
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(StoreException.class)
+    public ResponseEntity<?> storeExceptionHandler(StoreException e) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                e.getErrorCode(), e.getErrorMessage());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MemberException.class)
+    public ResponseEntity<?> memberExceptionHandler(MemberException e) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                e.getErrorCode(), e.getErrorMessage());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> exceptionHandler() {
         ErrorResponse errorResponse = new ErrorResponse(
