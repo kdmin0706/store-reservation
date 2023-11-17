@@ -21,5 +21,6 @@ spring:
 
   jwt:
     header : Authorization
+    prefix : Bearer
     secret : ReservationStore0123456789
-    token-valid-time : 86400   #하루를 초로 계산
+    token-valid-time : 3600000   #1시간(second 변환)
