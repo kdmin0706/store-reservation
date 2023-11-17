@@ -15,6 +15,7 @@ import java.util.List;
 @Builder
 @RequiredArgsConstructor
 public class SecurityMemberDetail implements UserDetails {
+
     private final Member member;
 
     @Override

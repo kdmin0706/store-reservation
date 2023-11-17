@@ -20,15 +20,20 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    public static final String TOKEN_PREFIX = "Bearer ";
     private final TokenProvider tokenProvider;
+
+    @Value("${spring.jwt.prefix}")
+    private String tokenPrefix;
 
     @Value("${spring.jwt.header}")
     private String tokenHeader;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+
         String token = this.resolveTokenFromRequest(request);
+
         //토큰 유효성 검증
         if (StringUtils.hasText(token) && this.tokenProvider.validateToken(token)) {
             Authentication auth = this.tokenProvider.getAuthentication(token);
@@ -42,8 +47,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private String resolveTokenFromRequest(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
-        if (!ObjectUtils.isEmpty(token) && token.startsWith(TOKEN_PREFIX)) {
-            return token.substring(TOKEN_PREFIX.length());
+        if (!ObjectUtils.isEmpty(token) && token.startsWith(tokenPrefix)) {
+            return token.substring(tokenPrefix.length());
         }
         return null;
     }
