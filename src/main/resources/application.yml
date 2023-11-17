@@ -4,11 +4,10 @@ spring:
     url: jdbc:mysql://localhost:3306/project?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
     username: root
     password: 1234
+
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  jwt:
-    secret: q1w2e3r4t5y6u7i8o9p0
 
   jpa:
     hibernate:
@@ -19,3 +18,8 @@ spring:
         show_sql: true
     database: mysql
     defer-datasource-initialization: true
+
+  jwt:
+    header : Authorization
+    secret : ReservationStore0123456789
+    token-valid-time : 86400   #하루를 초로 계산
