@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(e.getErrorCode(), e.getErrorMessage());
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ErrorResponse handleADataIntegrityViolationException(DataIntegrityViolationException e) {
+    public ErrorResponse DataIntegrityViolationExceptionHandler(DataIntegrityViolationException e) {
         return new ErrorResponse(INVALID_REQUEST, INVALID_REQUEST.getDescription());
     }
 
