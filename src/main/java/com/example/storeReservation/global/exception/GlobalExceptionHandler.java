@@ -3,8 +3,6 @@ package com.example.storeReservation.global.exception;
 
 import com.example.storeReservation.global.model.ErrorResponse;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -18,7 +16,7 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(e.getErrorCode(), e.getErrorMessage());
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ErrorResponse DataIntegrityViolationExceptionHandler(DataIntegrityViolationException e) {
+    public ErrorResponse DataIntegrityViolationExceptionHandler() {
         return new ErrorResponse(INVALID_REQUEST, INVALID_REQUEST.getDescription());
     }
 
