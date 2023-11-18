@@ -1,4 +1,4 @@
-package com.example.reservation.global.type;
+package com.example.storeReservation.global.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

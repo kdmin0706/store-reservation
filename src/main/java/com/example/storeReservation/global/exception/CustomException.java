@@ -1,6 +1,6 @@
-package com.example.reservation.global.exception;
+package com.example.storeReservation.global.exception;
 
-import com.example.reservation.global.type.ErrorCode;
+import com.example.storeReservation.global.type.ErrorCode;
 import lombok.Getter;
 
 @Getter

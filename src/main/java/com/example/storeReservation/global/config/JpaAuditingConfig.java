@@ -1,4 +1,4 @@
-package com.example.reservation.global.config;
+package com.example.storeReservation.global.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

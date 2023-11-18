@@ -1,6 +1,6 @@
-package com.example.reservation.global.model;
+package com.example.storeReservation.global.model;
 
-import com.example.reservation.global.type.ErrorCode;
+import com.example.storeReservation.global.type.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.example.reservation.global.entity;
+package com.example.storeReservation.global.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
