@@ -1,7 +1,7 @@
-package com.example.reservation.member.Model;
+package com.example.storeReservation.member.Model;
 
-import com.example.reservation.member.Model.type.UserType;
-import com.example.reservation.member.entity.Member;
+import com.example.storeReservation.member.Model.type.MemberStatus;
+import com.example.storeReservation.member.entity.Member;
 import lombok.*;
 
 @Getter
@@ -12,7 +12,7 @@ import lombok.*;
 public class MemberDto {
     private Long id;
     private String username;
-    private UserType userType;
+    private MemberStatus memberStatus;
     private String email;
     private String password;
     private String phoneNumber;
@@ -21,7 +21,7 @@ public class MemberDto {
         return MemberDto.builder()
                 .id(member.getId())
                 .username(member.getUsername())
-                .userType(member.getUserType())
+                .memberStatus(member.getMemberStatus())
                 .email(member.getEmail())
                 .password(member.getPassword())
                 .phoneNumber(member.getPhoneNumber())

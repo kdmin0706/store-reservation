@@ -1,7 +1,7 @@
-package com.example.reservation.member.entity;
+package com.example.storeReservation.member.entity;
 
-import com.example.reservation.global.entity.BaseEntity;
-import com.example.reservation.member.Model.type.UserType;
+import com.example.storeReservation.global.entity.BaseEntity;
+import com.example.storeReservation.member.Model.type.MemberStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,7 +31,7 @@ public class Member extends BaseEntity {
      * 회원 구분
      */
     @Enumerated(EnumType.STRING)
-    private UserType userType;
+    private MemberStatus memberStatus;
 
     /**
      * 회원 이메일
