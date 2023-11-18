@@ -1,6 +1,6 @@
-package com.example.reservation.member.config;
+package com.example.storeReservation.member.config;
 
-import com.example.reservation.member.security.JwtAuthenticationFilter;
+import com.example.storeReservation.member.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

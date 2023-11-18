@@ -1,6 +1,6 @@
-package com.example.reservation.member.security;
+package com.example.storeReservation.member.security;
 
-import com.example.reservation.member.entity.Member;
+import com.example.storeReservation.member.entity.Member;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class SecurityMemberDetail implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(
-                this.member.getUserType().getDescription()));
+                this.member.getMemberStatus().getDescription()));
     }
 
     @Override
