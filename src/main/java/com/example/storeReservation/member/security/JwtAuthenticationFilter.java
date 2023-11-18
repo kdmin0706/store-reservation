@@ -1,4 +1,4 @@
-package com.example.reservation.member.security;
+package com.example.storeReservation.member.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

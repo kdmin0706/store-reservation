@@ -1,7 +1,7 @@
-package com.example.reservation.member.security;
+package com.example.storeReservation.member.security;
 
-import com.example.reservation.member.Model.type.UserType;
-import com.example.reservation.member.service.MemberService;
+import com.example.storeReservation.member.Model.type.MemberStatus;
+import com.example.storeReservation.member.service.MemberService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -19,7 +19,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.Date;
 
-import static com.example.reservation.member.security.TokenUtil.generateRandomToken;
+import static com.example.storeReservation.member.security.TokenUtil.generateRandomToken;
 
 @Component
 @RequiredArgsConstructor
@@ -35,13 +35,15 @@ public class TokenProvider {
     /**
      * 토큰 생성
      * @param userEmail 회원 이메일
-     * @param userType  회원 구분
+     * @param memberStatus  회원 구분
      * @return jwt 생성
      */
-    public String createToken(String userEmail, UserType userType) {
-        SecretKey key = new SecretKeySpec(Base64.getDecoder().decode(this.secretKey), "HmacSHA256");
+    public String createToken(String userEmail, MemberStatus memberStatus) {
+        SecretKey key = new SecretKeySpec(Base64.getDecoder()
+                .decode(this.secretKey), "HmacSHA256");
+
         Claims claims = Jwts.claims().setSubject(userEmail).setId(generateRandomToken());
-        claims.put("roles", userType);
+        claims.put("roles", memberStatus);
 
         Date now = new Date();
 
@@ -54,8 +56,11 @@ public class TokenProvider {
     }
 
     public Authentication getAuthentication(String jwt) {
-        UserDetails userDetails = this.memberService.loadUserByUsername(this.getUsername(jwt));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        UserDetails userDetails
+                = this.memberService.loadUserByUsername(this.getUsername(jwt));
+
+        return new UsernamePasswordAuthenticationToken(
+                userDetails, "", userDetails.getAuthorities());
     }
 
     public String getUsername(String token) {
@@ -73,7 +78,9 @@ public class TokenProvider {
     }
 
     private Claims parseClaims(String token) {
-        SecretKey key = new SecretKeySpec(Base64.getDecoder().decode(this.secretKey), "HmacSHA256");
+        SecretKey key = new SecretKeySpec(Base64.getDecoder()
+                .decode(this.secretKey), "HmacSHA256");
+
         try {
             return Jwts.parser().setSigningKey(key)
                     .parseClaimsJws(token).getBody();
