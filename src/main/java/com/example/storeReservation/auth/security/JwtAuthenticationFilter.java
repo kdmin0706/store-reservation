@@ -1,4 +1,4 @@
-package com.example.storeReservation.member.security;
+package com.example.storeReservation.auth.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +40,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(auth);
 
            log.info(String.format("[%s] -> %s", this.tokenProvider.getUsername(token), request.getRequestURI()));
+        } else {
+            log.info("토큰 유효성 검증 실패!!!");
         }
 
         filterChain.doFilter(request, response);
