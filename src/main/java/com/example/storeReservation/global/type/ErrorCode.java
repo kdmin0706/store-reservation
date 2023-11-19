@@ -2,6 +2,7 @@ package com.example.storeReservation.global.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
@@ -17,6 +18,7 @@ public enum ErrorCode {
      * user error
      */
     USER_NOT_FOUND("사용자가 없습니다."),
+    MANAGER_NOT_FOUND("매니저가 없습니다."),
     PASSWORD_NOT_MATCH("비밀번호가 일치하지 않습니다"),
     ALREADY_EXISTED_USER("이미 가입된 회원입니다."),
 
@@ -31,7 +33,14 @@ public enum ErrorCode {
      */
     RESERVATION_NOT_FOUND("예약을 찾을 수 없습니다."),
     APPROVAL_STATE_NOT_CHANGED("예약 승인 또는 거절을 해주세요"),
-    ALREADY_RESERVED("이미 예약된 시간입니다.")
+    ALREADY_RESERVED("이미 예약된 시간입니다."),
+
+    /**
+     * security error
+     */
+    TOKEN_TIME_OUT("토큰이 만료되었습니다."),
+    JWT_TOKEN_WRONG_TYPE("JWT 토큰 형식에 문제가 있습니다.")
+
     ;
 
     private final String description;
