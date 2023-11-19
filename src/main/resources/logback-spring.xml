@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <!--변수 값 설정 -->
+    <property name="LOG_DIR" value="./logs"/>
+    <property name="LOG_FILE_NAME" value="log_file"/>
+    <property name="LOGS_LEVEL" value="info"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %magenta(%-4relative) --- [%thread{10} ] %cyan(%logger{20}) : %msg%n </pattern>
+        </encoder>
+    </appender>
+
+    <!--File Appender-->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--파일명 경로 설정-->
+        <file>${LOG_DIR}/${LOG_FILE_NAME}.log</file>
+        <!--Rolling 정책-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- .gz, .zip 등을 넣으면 자동 일자별 로그파일 압축-->
+            <fileNamePattern>${LOG_DIR}/${LOG_FILE_NAME}-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!--파일당 최고 용량-->
+            <maxFileSize>10MB</maxFileSize>
+            <!--일자별 로그파일 최대 보관 주(~일), 해당 설정일 이상된 파일은 자동으로 제거-->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <!--출력 패턴 설정-->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="${LOGS_LEVEL}"/>
+    <logger name="org.hibernate" level="${LOGS_LEVEL}"/>
+
+    <root level="${LOGS_LEVEL}">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
