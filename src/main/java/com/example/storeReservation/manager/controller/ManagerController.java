@@ -28,15 +28,15 @@ public class ManagerController {
 
     /**
      * 회원 정보 조회
-     * @param managerId 사용자 아이디
+     * @param id 사용자 아이디
      * @return 사용자 정보
      */
     @GetMapping
-    public ResponseEntity<?> getUserInfo(
-            @RequestParam("managerid") Long managerId
+    public ResponseEntity<?> getManagerInfo(
+            @RequestParam("id") Long id
     ) {
         return ResponseEntity.ok(
-                this.managerService.MemberDetail(managerId)
+                this.managerService.MemberDetail(id)
         );
     }
 }
