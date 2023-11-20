@@ -1,4 +1,4 @@
-package com.example.storeReservation.member.config;
+package com.example.storeReservation.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
