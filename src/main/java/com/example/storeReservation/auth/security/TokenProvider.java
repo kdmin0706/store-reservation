@@ -2,11 +2,7 @@ package com.example.storeReservation.auth.security;
 
 import com.example.storeReservation.auth.service.AuthService;
 import com.example.storeReservation.auth.type.MemberType;
-import com.example.storeReservation.member.service.MemberService;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +17,8 @@ import java.util.Base64;
 import java.util.Date;
 
 import static com.example.storeReservation.auth.security.TokenUtil.generateRandomToken;
+import static com.example.storeReservation.global.type.ErrorCode.JWT_TOKEN_WRONG_TYPE;
+import static com.example.storeReservation.global.type.ErrorCode.TOKEN_TIME_OUT;
 
 @Component
 @RequiredArgsConstructor
@@ -91,8 +89,10 @@ public class TokenProvider {
         try {
             return Jwts.parser().setSigningKey(key)
                     .parseClaimsJws(token).getBody();
-        } catch(ExpiredJwtException e) {
-            return e.getClaims();
+        } catch (ExpiredJwtException e) {
+            throw new JwtException(TOKEN_TIME_OUT.getDescription());
+        } catch (SignatureException e) {
+            throw new JwtException(JWT_TOKEN_WRONG_TYPE.getDescription());
         }
     }
 }
