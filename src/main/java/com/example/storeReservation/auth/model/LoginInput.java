@@ -1,4 +1,4 @@
-package com.example.storeReservation.auth.dto;
+package com.example.storeReservation.auth.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

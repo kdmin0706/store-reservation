@@ -1,6 +1,6 @@
 package com.example.storeReservation.auth.service;
 
-import com.example.storeReservation.auth.dto.LoginInput;
+import com.example.storeReservation.auth.model.LoginInput;
 import com.example.storeReservation.global.exception.CustomException;
 import com.example.storeReservation.manager.entity.Manager;
 import com.example.storeReservation.manager.repository.ManagerRepository;
