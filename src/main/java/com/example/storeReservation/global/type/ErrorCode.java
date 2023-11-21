@@ -19,13 +19,14 @@ public enum ErrorCode {
     USER_NOT_FOUND("사용자가 없습니다."),
     MANAGER_NOT_FOUND("매니저가 없습니다."),
     PASSWORD_NOT_MATCH("비밀번호가 일치하지 않습니다"),
-    ALREADY_EXISTED_USER("이미 가입된 회원입니다."),
+    ALREADY_EXIST_USER("이미 가입된 회원입니다."),
+    USER_AUTHORITY_NOT_MATCH("사용자가 맞지 않습니다."),
 
     /**
      * store error
      */
     STORE_NOT_FOUND("매장을 찾을 수 없습니다."),
-    ALREADY_EXISTED_STORE("이미 사용 중인 매장 이름입니다."),
+    ALREADY_EXIST_STORE("이미 사용 중인 매장 이름입니다."),
 
     /**
      * reservation error
@@ -33,6 +34,11 @@ public enum ErrorCode {
     RESERVATION_NOT_FOUND("예약을 찾을 수 없습니다."),
     APPROVAL_STATE_NOT_CHANGED("예약 승인 또는 거절을 해주세요"),
     ALREADY_RESERVED("이미 예약된 시간입니다."),
+
+    /**
+     * review error
+     */
+    ALREADY_EXIST_REVIEW("이미 리뷰가 존재합니다."),
 
     /**
      * security error
