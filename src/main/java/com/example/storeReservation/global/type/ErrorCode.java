@@ -32,13 +32,18 @@ public enum ErrorCode {
      * reservation error
      */
     RESERVATION_NOT_FOUND("예약을 찾을 수 없습니다."),
-    APPROVAL_STATE_NOT_CHANGED("예약 승인 또는 거절을 해주세요"),
     ALREADY_RESERVED("이미 예약된 시간입니다."),
+    INVALID_ARRIVAL_STATE_UPDATE("도착 여부를 알 수 없습니다."),
+    RESERVATION_STATUS_CHECK_ERROR("예약 상태 코드에 문제가 있습니다. 가게에 문의하세요."),
+    RESERVATION_TIME_CHECK_ERROR("예약 시간에 문제가 있습니다. 가게에 문의하세요."),
 
     /**
      * review error
      */
+    REVIEW_NOT_FOUND("리뷰를 찾을 수 없습니다."),
+
     ALREADY_EXIST_REVIEW("이미 리뷰가 존재합니다."),
+    REVIEW_NOT_AVAILABLE("해당 예약은 리뷰를 쓸 수 있는 상태가 아닙니다."),
 
     /**
      * security error

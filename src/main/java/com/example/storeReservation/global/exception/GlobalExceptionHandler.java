@@ -1,7 +1,7 @@
 package com.example.storeReservation.global.exception;
 
 
-import com.example.storeReservation.global.model.ErrorResponse;
+import com.example.storeReservation.global.dto.ErrorResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
