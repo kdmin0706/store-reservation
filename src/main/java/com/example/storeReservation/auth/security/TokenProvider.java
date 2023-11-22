@@ -1,8 +1,11 @@
-package com.example.storeReservation.auth.security;
+package com.example.reservation.member.security;
 
-import com.example.storeReservation.auth.service.AuthService;
-import com.example.storeReservation.auth.type.MemberType;
-import io.jsonwebtoken.*;
+import com.example.reservation.member.Model.type.UserType;
+import com.example.reservation.member.service.MemberService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,14 +19,12 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.Date;
 
-import static com.example.storeReservation.auth.security.TokenUtil.generateRandomToken;
-import static com.example.storeReservation.global.type.ErrorCode.JWT_TOKEN_WRONG_TYPE;
-import static com.example.storeReservation.global.type.ErrorCode.TOKEN_TIME_OUT;
+import static com.example.reservation.member.security.TokenUtil.generateRandomToken;
 
 @Component
 @RequiredArgsConstructor
 public class TokenProvider {
-    private final AuthService authService;
+    private final MemberService memberService;
 
     @Value("${spring.jwt.token-valid-time}")
     private long tokenValidTime;
@@ -34,15 +35,13 @@ public class TokenProvider {
     /**
      * 토큰 생성
      * @param userEmail 회원 이메일
-     * @param memberType  회원 구분
+     * @param userType  회원 구분
      * @return jwt 생성
      */
-    public String createToken(String userEmail, MemberType memberType) {
-        SecretKey key = new SecretKeySpec(Base64.getDecoder()
-                .decode(this.secretKey), "HmacSHA256");
-
+    public String createToken(String userEmail, UserType userType) {
+        SecretKey key = new SecretKeySpec(Base64.getDecoder().decode(this.secretKey), "HmacSHA256");
         Claims claims = Jwts.claims().setSubject(userEmail).setId(generateRandomToken());
-        claims.put("roles", memberType);
+        claims.put("roles", userType);
 
         Date now = new Date();
 
@@ -55,19 +54,10 @@ public class TokenProvider {
     }
 
     public Authentication getAuthentication(String jwt) {
-        UserDetails userDetails
-                = this.authService.loadUserByUsername(this.getUsername(jwt));
-
-        return new UsernamePasswordAuthenticationToken(
-                userDetails, "", userDetails.getAuthorities());
+        UserDetails userDetails = this.memberService.loadUserByUsername(this.getUsername(jwt));
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    /**
-     * token으로 username(사용자 ID) 찾기
-     *
-     * @param token: 토큰 내용
-     * @return username
-     */
     public String getUsername(String token) {
         return this.parseClaims(token).getSubject();
     }
@@ -83,16 +73,12 @@ public class TokenProvider {
     }
 
     private Claims parseClaims(String token) {
-        SecretKey key = new SecretKeySpec(Base64.getDecoder()
-                .decode(this.secretKey), "HmacSHA256");
-
+        SecretKey key = new SecretKeySpec(Base64.getDecoder().decode(this.secretKey), "HmacSHA256");
         try {
             return Jwts.parser().setSigningKey(key)
                     .parseClaimsJws(token).getBody();
-        } catch (ExpiredJwtException e) {
-            throw new JwtException(TOKEN_TIME_OUT.getDescription());
-        } catch (SignatureException e) {
-            throw new JwtException(JWT_TOKEN_WRONG_TYPE.getDescription());
+        } catch(ExpiredJwtException e) {
+            return e.getClaims();
         }
     }
 }

@@ -1,6 +1,6 @@
-package com.example.storeReservation.auth.config;
+package com.example.reservation.member.config;
 
-import com.example.storeReservation.auth.security.JwtAuthenticationFilter;
+import com.example.reservation.member.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers("/**/register", "/**/login").permitAll()
+                .antMatchers("/**/signup", "/**/signin").permitAll()
                 .and()
                 .addFilterBefore(
                         this.authenticationFilter,
