@@ -14,7 +14,7 @@ public enum MemberType {
     /**
      * 매니저
      */
-    MANAGER("ROLE_MANAGER");
+    PARTNER("ROLE_PARTNER");
 
     private final String description;
 }

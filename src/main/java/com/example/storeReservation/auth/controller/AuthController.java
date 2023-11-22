@@ -1,6 +1,6 @@
 package com.example.storeReservation.auth.controller;
 
-import com.example.storeReservation.auth.model.LoginInput;
+import com.example.storeReservation.auth.dto.LoginInput;
 import com.example.storeReservation.auth.security.TokenProvider;
 import com.example.storeReservation.auth.service.AuthService;
 import com.example.storeReservation.manager.entity.Manager;
