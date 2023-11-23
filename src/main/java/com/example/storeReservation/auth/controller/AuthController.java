@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/login")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -25,10 +25,8 @@ public class AuthController {
      * @param request: 매니저 로그인 요청
      * @return 매니저 로그인 완료 토큰
      */
-    @PostMapping("/manager/login")
-    public ResponseEntity<?> managerLogin(
-            @RequestBody LoginInput request
-    ){
+    @PostMapping("/manager")
+    public ResponseEntity<?> managerLogin(@RequestBody LoginInput request){
         Manager manager = this.authService.authenticateManager(request);
         return ResponseEntity.ok(
                 this.tokenProvider.createToken(
@@ -42,10 +40,8 @@ public class AuthController {
      * @param request: 유저 로그인 요청
      * @return 유저 로그인 완료 토큰
      */
-    @PostMapping("/user/login")
-    public ResponseEntity<?> userLogin(
-            @RequestBody LoginInput request
-    ){
+    @PostMapping("/user")
+    public ResponseEntity<?> userLogin(@RequestBody LoginInput request){
         User user = this.authService.authenticateUser(request);
         return ResponseEntity.ok(
                 this.tokenProvider.createToken(

@@ -19,7 +19,7 @@ import java.io.IOException;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class AuthenticationFilter extends OncePerRequestFilter {
     private final TokenProvider tokenProvider;
 
     @Value("${spring.jwt.prefix}")

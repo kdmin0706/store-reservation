@@ -7,6 +7,7 @@ import com.example.storeReservation.manager.repository.ManagerRepository;
 import com.example.storeReservation.user.entity.User;
 import com.example.storeReservation.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import static com.example.storeReservation.global.type.ErrorCode.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService implements UserDetailsService {
@@ -53,11 +55,15 @@ public class AuthService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String email) {
+        log.info("Load User => email : {}", email);
+
         if (this.managerRepository.existsByEmail(email)) {
             return checkManagerEmail(email);
         } else if (this.userRepository.existsByEmail(email)) {
             return checkUserEmail(email);
         }
+
+        log.error("AuthService -> loadUserByUsername fail");
         return null;
     }
 
