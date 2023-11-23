@@ -1,4 +1,4 @@
-package com.example.reservation.member.security;
+package com.example.storeReservation.auth.security;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
