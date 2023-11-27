@@ -45,7 +45,7 @@ public class StoreController {
     /**
      * 매장 삭제
      * @param id: 매장 아이디
-     * @return: 매장 삭제 완료 Message
+     * @return 매장 삭제 완료 Message
      */
     @DeleteMapping("/partner/delete/{id}")
     @PreAuthorize("hasRole('PARTNER')")
