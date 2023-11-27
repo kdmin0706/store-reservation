@@ -4,13 +4,15 @@ import com.example.storeReservation.auth.dto.LoginInput;
 import com.example.storeReservation.auth.security.TokenProvider;
 import com.example.storeReservation.auth.service.AuthService;
 import com.example.storeReservation.manager.entity.Manager;
-import com.example.storeReservation.user.entity.User;
+import com.example.storeReservation.customer.entity.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/login")
@@ -26,7 +28,7 @@ public class AuthController {
      * @return 매니저 로그인 완료 토큰
      */
     @PostMapping("/manager")
-    public ResponseEntity<?> managerLogin(@RequestBody LoginInput request){
+    public ResponseEntity<?> managerLogin(@RequestBody @Valid LoginInput request){
         Manager manager = this.authService.authenticateManager(request);
         return ResponseEntity.ok(
                 this.tokenProvider.createToken(
@@ -40,13 +42,13 @@ public class AuthController {
      * @param request: 유저 로그인 요청
      * @return 유저 로그인 완료 토큰
      */
-    @PostMapping("/user")
-    public ResponseEntity<?> userLogin(@RequestBody LoginInput request){
-        User user = this.authService.authenticateUser(request);
+    @PostMapping("/customer")
+    public ResponseEntity<?> userLogin(@RequestBody @Valid LoginInput request){
+        Customer customer = this.authService.authenticateCustomer(request);
         return ResponseEntity.ok(
                 this.tokenProvider.createToken(
-                        user.getEmail(),
-                        user.getMemberType())
+                        customer.getEmail(),
+                        customer.getMemberType())
         );
     }
 }
