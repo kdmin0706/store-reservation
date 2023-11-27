@@ -1,11 +1,11 @@
-package com.example.storeReservation.user.service;
+package com.example.storeReservation.customer.service;
 
 import com.example.storeReservation.auth.type.MemberType;
 import com.example.storeReservation.global.exception.CustomException;
-import com.example.storeReservation.user.dto.RegisterUser;
-import com.example.storeReservation.user.dto.UserDto;
-import com.example.storeReservation.user.entity.User;
-import com.example.storeReservation.user.repository.UserRepository;
+import com.example.storeReservation.customer.dto.RegisterCustomer;
+import com.example.storeReservation.customer.dto.CustomerDto;
+import com.example.storeReservation.customer.entity.Customer;
+import com.example.storeReservation.customer.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,14 +16,14 @@ import static com.example.storeReservation.global.type.ErrorCode.USER_NOT_FOUND;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService {
+public class CustomerServiceImpl implements CustomerService {
 
     private final PasswordEncoder passwordEncoder;
-    private final UserRepository userRepository;
+    private final CustomerRepository userRepository;
 
     @Override
     @Transactional
-    public UserDto register(RegisterUser user) {
+    public CustomerDto register(RegisterCustomer user) {
         boolean exists = this.userRepository.existsByEmail(user.getEmail());
         if (exists) {
             throw new CustomException(ALREADY_EXIST_USER);
@@ -31,23 +31,24 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 
-        User savedUser = this.userRepository.save(User.builder()
+        Customer savedCustomer = this.userRepository.save(Customer.builder()
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .phoneNumber(user.getPhoneNumber())
-                .memberType(MemberType.USER)
+                .memberType(MemberType.CUSTOMER)
                 .build());
 
-        return UserDto.fromEntity(savedUser);
+        return CustomerDto.fromEntity(savedCustomer);
     }
 
     @Override
-    public UserDto MemberDetail(Long userId) {
-        User user = this.userRepository.findById(userId)
+    public CustomerDto MemberDetail(Long userId) {
+        Customer customer = this.userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
-        return UserDto.fromEntity(user);
+
+        return CustomerDto.fromEntity(customer);
     }
 
 }

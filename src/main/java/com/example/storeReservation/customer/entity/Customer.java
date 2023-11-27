@@ -1,4 +1,4 @@
-package com.example.storeReservation.user.entity;
+package com.example.storeReservation.customer.entity;
 
 import com.example.storeReservation.auth.type.MemberType;
 import com.example.storeReservation.global.entity.BaseEntity;
@@ -19,7 +19,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends BaseEntity implements UserDetails {
+public class Customer extends BaseEntity implements UserDetails {
     /**
      * 회원 아이디
      */
@@ -60,7 +60,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
     }
 
     @Override

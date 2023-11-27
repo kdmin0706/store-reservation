@@ -1,17 +1,17 @@
-package com.example.storeReservation.user.controller;
+package com.example.storeReservation.customer.controller;
 
-import com.example.storeReservation.user.dto.RegisterUser;
-import com.example.storeReservation.user.service.UserService;
+import com.example.storeReservation.customer.dto.RegisterCustomer;
+import com.example.storeReservation.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/customer")
 @RequiredArgsConstructor
-public class UserController {
+public class CustomerController {
 
-    private final UserService userService;
+    private final CustomerService customerService;
 
     /**
      * 회원 가입
@@ -19,9 +19,9 @@ public class UserController {
      * @return register 정보
      */
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterUser request) {
+    public ResponseEntity<?> register(@RequestBody RegisterCustomer request) {
         return ResponseEntity.ok().body(
-                request.from(this.userService.register(request)));
+                request.from(this.customerService.register(request)));
     }
 
     /**
@@ -31,6 +31,6 @@ public class UserController {
      */
     @GetMapping
     public ResponseEntity<?> getUserInfo(@RequestParam("id") Long id) {
-        return ResponseEntity.ok(this.userService.MemberDetail(id));
+        return ResponseEntity.ok(this.customerService.MemberDetail(id));
     }
 }
