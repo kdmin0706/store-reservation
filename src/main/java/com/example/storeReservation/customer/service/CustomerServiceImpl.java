@@ -1,11 +1,11 @@
 package com.example.storeReservation.customer.service;
 
 import com.example.storeReservation.auth.type.MemberType;
-import com.example.storeReservation.global.exception.CustomException;
-import com.example.storeReservation.customer.dto.RegisterCustomer;
 import com.example.storeReservation.customer.dto.CustomerDto;
+import com.example.storeReservation.customer.dto.RegisterCustomer;
 import com.example.storeReservation.customer.entity.Customer;
 import com.example.storeReservation.customer.repository.CustomerRepository;
+import com.example.storeReservation.global.exception.CustomException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,19 +19,19 @@ import static com.example.storeReservation.global.type.ErrorCode.USER_NOT_FOUND;
 public class CustomerServiceImpl implements CustomerService {
 
     private final PasswordEncoder passwordEncoder;
-    private final CustomerRepository userRepository;
+    private final CustomerRepository customerRepository;
 
     @Override
     @Transactional
     public CustomerDto register(RegisterCustomer user) {
-        boolean exists = this.userRepository.existsByEmail(user.getEmail());
+        boolean exists = this.customerRepository.existsByEmail(user.getEmail());
         if (exists) {
             throw new CustomException(ALREADY_EXIST_USER);
         }
 
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 
-        Customer savedCustomer = this.userRepository.save(Customer.builder()
+        Customer savedCustomer = this.customerRepository.save(Customer.builder()
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .password(user.getPassword())
@@ -44,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto MemberDetail(Long userId) {
-        Customer customer = this.userRepository.findById(userId)
+        Customer customer = this.customerRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
 

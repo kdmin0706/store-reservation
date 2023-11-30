@@ -1,7 +1,7 @@
 package com.example.storeReservation.customer.service;
 
-import com.example.storeReservation.customer.dto.RegisterCustomer;
 import com.example.storeReservation.customer.dto.CustomerDto;
+import com.example.storeReservation.customer.dto.RegisterCustomer;
 
 public interface CustomerService {
 
