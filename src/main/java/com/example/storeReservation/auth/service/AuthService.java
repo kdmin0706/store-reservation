@@ -2,11 +2,11 @@ package com.example.storeReservation.auth.service;
 
 import com.example.storeReservation.auth.dto.LoginInput;
 import com.example.storeReservation.auth.type.MemberType;
+import com.example.storeReservation.customer.entity.Customer;
+import com.example.storeReservation.customer.repository.CustomerRepository;
 import com.example.storeReservation.global.exception.CustomException;
 import com.example.storeReservation.manager.entity.Manager;
 import com.example.storeReservation.manager.repository.ManagerRepository;
-import com.example.storeReservation.customer.entity.Customer;
-import com.example.storeReservation.customer.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.example.storeReservation.global.type.ErrorCode.*;
-import static org.springframework.security.core.userdetails.User.*;
+import static org.springframework.security.core.userdetails.User.builder;
 
 @Slf4j
 @Service
