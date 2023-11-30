@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.example.storeReservation.global.type.ErrorCode.ALREADY_EXISTED_USER;
+import static com.example.storeReservation.global.type.ErrorCode.ALREADY_EXIST_USER;
 import static com.example.storeReservation.global.type.ErrorCode.MANAGER_NOT_FOUND;
 
 @Service
@@ -26,7 +26,7 @@ public class ManagerServiceImpl implements ManagerService {
     public ManagerDto register(RegisterManager user) {
         boolean exists = this.managerRepository.existsByEmail(user.getEmail());
         if (exists) {
-            throw new CustomException(ALREADY_EXISTED_USER);
+            throw new CustomException(ALREADY_EXIST_USER);
         }
 
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
@@ -36,7 +36,7 @@ public class ManagerServiceImpl implements ManagerService {
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .phoneNumber(user.getPhoneNumber())
-                .memberType(MemberType.MANAGER)
+                .memberType(MemberType.PARTNER)
                 .build());
 
         return ManagerDto.fromEntity(savedManager);

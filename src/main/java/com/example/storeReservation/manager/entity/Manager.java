@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.List;
@@ -20,14 +21,14 @@ import java.util.List;
 @AllArgsConstructor
 public class Manager extends BaseEntity implements UserDetails {
     /**
-     * 회원 아이디
+     * 매니저 아이디
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * 회원 이름
+     * 매니저 이름
      */
     @NotBlank
     private String username;
@@ -39,27 +40,27 @@ public class Manager extends BaseEntity implements UserDetails {
     private MemberType memberType;
 
     /**
-     * 회원 이메일
+     * 매니저 이메일
      */
-    @NotBlank
+    @Email
     @Column(unique = true)
     private String email;
 
     /**
-     * 회원 비밀번호
+     * 매니저 비밀번호
      */
     @NotBlank
     private String password;
 
     /**
-     * 회원 휴대폰 번호
+     * 매니저 휴대폰 번호
      */
     @NotBlank
     private String phoneNumber;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_MANAGER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_PARTNER"));
     }
 
     @Override

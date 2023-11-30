@@ -4,6 +4,7 @@ import com.example.storeReservation.manager.dto.RegisterManager;
 import com.example.storeReservation.manager.service.ManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,9 +20,7 @@ public class ManagerController {
      * @return register 정보
      */
     @PostMapping("/register")
-    public ResponseEntity<?> register(
-            @RequestBody RegisterManager request
-    ) {
+    public ResponseEntity<?> register(@RequestBody RegisterManager request) {
         return ResponseEntity.ok().body(
                 request.from(this.managerService.register(request)));
     }
@@ -32,11 +31,8 @@ public class ManagerController {
      * @return 사용자 정보
      */
     @GetMapping
-    public ResponseEntity<?> getManagerInfo(
-            @RequestParam("id") Long id
-    ) {
-        return ResponseEntity.ok(
-                this.managerService.MemberDetail(id)
-        );
+    @PreAuthorize("hasRole('PARTNER')")
+    public ResponseEntity<?> getManagerInfo(@RequestParam("id") Long id) {
+        return ResponseEntity.ok(this.managerService.MemberDetail(id));
     }
 }
