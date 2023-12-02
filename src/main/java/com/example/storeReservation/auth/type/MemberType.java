@@ -9,7 +9,7 @@ public enum MemberType {
     /**
      * 일반 회원
      */
-    USER("ROLE_USER"),
+    CUSTOMER("ROLE_CUSTOMER"),
 
     /**
      * 매니저
