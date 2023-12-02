@@ -1,5 +1,7 @@
 package com.example.storeReservation.auth.security;
 
+import com.example.storeReservation.global.exception.CustomException;
+import com.example.storeReservation.global.type.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,8 +41,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             Authentication auth = this.tokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(auth);
             log.info(String.format("[%s] -> %s", this.tokenProvider.getUsername(token), request.getRequestURI()));
-        } else {
-            log.info("토큰 유효성 검증 실패!!!");
         }
 
         filterChain.doFilter(request, response);

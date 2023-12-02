@@ -9,6 +9,7 @@ import com.example.storeReservation.manager.entity.Manager;
 import com.example.storeReservation.manager.repository.ManagerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,15 +17,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.example.storeReservation.auth.type.MemberType.CUSTOMER;
+import static com.example.storeReservation.auth.type.MemberType.PARTNER;
 import static com.example.storeReservation.global.type.ErrorCode.*;
-import static org.springframework.security.core.userdetails.User.builder;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService implements UserDetailsService {
     private final ManagerRepository managerRepository;
-    private final CustomerRepository userRepository;
+    private final CustomerRepository customerRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -60,28 +62,26 @@ public class AuthService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        log.info("Load UserDetails => email : {}", email);
-
         if (this.managerRepository.existsByEmail(email)) {
             Manager manager = checkManagerEmail(email);
 
-            return builder()
-                    .username(manager.getEmail())
-                    .password(manager.getPassword())
-                    .roles(String.valueOf(MemberType.PARTNER))
-                    .build();
-
-        } else if (this.userRepository.existsByEmail(email)) {
+            return createUserDetails(manager.getEmail(),
+                    manager.getPassword(), PARTNER);
+        } else if (this.customerRepository.existsByEmail(email)) {
             Customer customer = checkUserEmail(email);
 
-            return builder()
-                    .username(customer.getEmail())
-                    .password(customer.getPassword())
-                    .roles(String.valueOf(MemberType.CUSTOMER))
-                    .build();
-        } else {
-            throw new CustomException(INVALID_REQUEST);
+            return createUserDetails(customer.getEmail(),
+                    customer.getPassword(), CUSTOMER);
         }
+
+        throw new UsernameNotFoundException("User not found with email: " + email);
+    }
+
+    private UserDetails createUserDetails(String username, String password, MemberType memberType) {
+        return User.withUsername(username)
+                .password(this.passwordEncoder.encode(password))
+                .roles(String.valueOf(memberType))
+                .build();
     }
 
     /**
@@ -102,7 +102,7 @@ public class AuthService implements UserDetailsService {
      * @return 유저 이메일이 없는 경우 에러
      */
     private Customer checkUserEmail(String email) {
-        return this.userRepository.findByEmail(email)
+        return this.customerRepository.findByEmail(email)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
     }
 }
