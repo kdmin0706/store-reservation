@@ -56,12 +56,10 @@ public class StoreController {
 
     /**
      * 매장 관련 세부 정보
-     *
      * @param name 매장 이름
      * @return 매장 정보
      */
     @GetMapping("/detail/{name}")
-    @PreAuthorize("hasAnyRole('USER','PARTNER')")
     public ResponseEntity<?> storeDetail(@PathVariable String name) {
         return ResponseEntity.ok(this.storeService.detailStore(name));
     }

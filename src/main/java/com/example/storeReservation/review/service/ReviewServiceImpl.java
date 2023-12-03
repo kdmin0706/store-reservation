@@ -22,7 +22,7 @@ import static com.example.storeReservation.global.type.ErrorCode.*;
 @Service
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService{
-    private final CustomerRepository userRepository;
+    private final CustomerRepository customerRepository;
     private final ReservationRepository reservationRepository;
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
@@ -31,7 +31,7 @@ public class ReviewServiceImpl implements ReviewService{
     @Transactional
     public ReviewDto createReview(Long userId, Long storeId, Long reservationId,
                                   CreateReview.Request request) {
-        Customer customer = this.userRepository.findById(userId)
+        Customer customer = this.customerRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
         Store store = this.storeRepository.findById(storeId)

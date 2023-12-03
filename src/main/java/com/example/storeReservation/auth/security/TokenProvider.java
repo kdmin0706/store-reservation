@@ -4,22 +4,24 @@ import com.example.storeReservation.auth.service.AuthService;
 import com.example.storeReservation.auth.type.MemberType;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Date;
+import java.util.UUID;
 
-import static com.example.storeReservation.auth.security.TokenUtil.generateRandomToken;
-import static com.example.storeReservation.global.type.ErrorCode.JWT_TOKEN_WRONG_TYPE;
-import static com.example.storeReservation.global.type.ErrorCode.TOKEN_TIME_OUT;
+import static com.example.storeReservation.global.type.ErrorCode.*;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class TokenProvider {
@@ -33,15 +35,15 @@ public class TokenProvider {
 
     /**
      * 토큰 생성
-     * @param userEmail 회원 이메일
-     * @param memberType  회원 구분
+     *
+     * @param userEmail  회원 이메일
+     * @param memberType 회원 구분
      * @return jwt 생성
      */
     public String createToken(String userEmail, MemberType memberType) {
-        SecretKey key = new SecretKeySpec(Base64.getDecoder()
-                .decode(this.secretKey), "HmacSHA256");
+        SecretKey key = getSecretKey();
 
-        Claims claims = Jwts.claims().setSubject(userEmail).setId(generateRandomToken());
+        Claims claims = Jwts.claims().setSubject(userEmail).setId(this.generateRandomToken());
         claims.put("roles", memberType);
 
         Date now = new Date();
@@ -54,9 +56,9 @@ public class TokenProvider {
                 .compact();
     }
 
-    public Authentication getAuthentication(String jwt) {
+    public Authentication getAuthentication(String token) {
         UserDetails userDetails
-                = this.authService.loadUserByUsername(this.getUsername(jwt));
+                = this.authService.loadUserByUsername(this.getUsername(token));
 
         return new UsernamePasswordAuthenticationToken(
                 userDetails, "", userDetails.getAuthorities());
@@ -67,26 +69,50 @@ public class TokenProvider {
     }
 
     public boolean validateToken(String token) {
-        if (!StringUtils.hasText(token)) {
-            return false;
+        try {
+            Claims claims = this.parseClaims(token);
+            return !claims.getExpiration().before(new Date());
+
+        } catch (ExpiredJwtException e) {
+            throw new JwtException(TOKEN_TIME_OUT.getDescription());
+        } catch (UnsupportedJwtException e) {
+            throw new JwtException(UNSUPPORTED_TOKEN.getDescription());
+        } catch (IllegalArgumentException e) {
+            throw new JwtException(WRONG_TOKEN.getDescription());
+        } catch (MalformedJwtException e) {
+            throw new JwtException(JWT_TOKEN_WRONG_TYPE.getDescription());
+        } catch (JwtException e) {
+            throw new JwtException(e.getMessage());
         }
-
-        Claims claims = this.parseClaims(token);
-
-        return !claims.getExpiration().before(new Date());
     }
 
     private Claims parseClaims(String token) {
-        SecretKey key = new SecretKeySpec(Base64.getDecoder()
+        SecretKey key = getSecretKey();
+
+        return Jwts.parser().setSigningKey(key)
+                .parseClaimsJws(token).getBody();
+    }
+
+    private SecretKey getSecretKey() {
+        return new SecretKeySpec(Base64.getDecoder()
                 .decode(this.secretKey), "HmacSHA256");
+    }
+
+    /**
+     * 토큰 암호화
+     * @return 인코딩 키
+     */
+    private String generateRandomToken(){
+        UUID uuid = UUID.randomUUID();
+        String token = uuid.toString();
 
         try {
-            return Jwts.parser().setSigningKey(key)
-                    .parseClaimsJws(token).getBody();
-        } catch (ExpiredJwtException e) {
-            throw new JwtException(TOKEN_TIME_OUT.getDescription());
-        } catch (SignatureException e) {
-            throw new JwtException(JWT_TOKEN_WRONG_TYPE.getDescription());
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            byte[] bytes = messageDigest.digest(token.getBytes());
+
+            return Base64.getEncoder().encodeToString(bytes);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
     }
 }

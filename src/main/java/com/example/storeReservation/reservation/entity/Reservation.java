@@ -1,11 +1,11 @@
 package com.example.storeReservation.reservation.entity;
 
+import com.example.storeReservation.customer.entity.Customer;
 import com.example.storeReservation.global.entity.BaseEntity;
 import com.example.storeReservation.manager.entity.Manager;
 import com.example.storeReservation.reservation.type.ArrivalStatus;
 import com.example.storeReservation.reservation.type.ReservationStatus;
 import com.example.storeReservation.store.entity.Store;
-import com.example.storeReservation.customer.entity.Customer;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,7 +37,7 @@ public class Reservation extends BaseEntity {
      * 유저 아이디
      */
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     /**

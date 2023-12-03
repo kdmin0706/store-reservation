@@ -1,5 +1,7 @@
 package com.example.storeReservation.reservation.service;
 
+import com.example.storeReservation.customer.entity.Customer;
+import com.example.storeReservation.customer.repository.CustomerRepository;
 import com.example.storeReservation.global.exception.CustomException;
 import com.example.storeReservation.manager.entity.Manager;
 import com.example.storeReservation.manager.repository.ManagerRepository;
@@ -12,8 +14,6 @@ import com.example.storeReservation.reservation.repository.ReservationRepository
 import com.example.storeReservation.reservation.type.ReservationStatus;
 import com.example.storeReservation.store.entity.Store;
 import com.example.storeReservation.store.repository.StoreRepository;
-import com.example.storeReservation.customer.entity.Customer;
-import com.example.storeReservation.customer.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,8 @@ import java.util.List;
 import static com.example.storeReservation.global.type.ErrorCode.*;
 import static com.example.storeReservation.reservation.type.ArrivalStatus.ARRIVED;
 import static com.example.storeReservation.reservation.type.ArrivalStatus.READY;
-import static com.example.storeReservation.reservation.type.ReservationStatus.*;
+import static com.example.storeReservation.reservation.type.ReservationStatus.STANDBY;
+import static com.example.storeReservation.reservation.type.ReservationStatus.USE_COMPLETED;
 
 @Slf4j
 @Service
@@ -35,7 +36,7 @@ public class ReservationServiceImpl implements ReservationService{
     private final ReservationRepository reservationRepository;
     private final StoreRepository storeRepository;
     private final ManagerRepository managerRepository;
-    private final CustomerRepository userRepository;
+    private final CustomerRepository customerRepository;
 
     @Override
     @Transactional
@@ -48,7 +49,7 @@ public class ReservationServiceImpl implements ReservationService{
         Manager manager = this.managerRepository.findById(store.getManager().getId())
                 .orElseThrow(() -> new CustomException(MANAGER_NOT_FOUND));
 
-        Customer customer = this.userRepository.findById(request.getUserId())
+        Customer customer = this.customerRepository.findById(request.getUserId())
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
         LocalDateTime reserveTime = LocalDateTime.of(
