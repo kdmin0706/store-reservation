@@ -1,0 +1,11 @@
+### 키오스크를 이용하여 도착 정보 변경 (회원)
+PUT http://localhost:8080/api/reservation/kiosk/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHVzZXIuY29tIiwianRpIjoiOEEvYS9QZDZkMmJRSDcvNHNRNDc1bkg2RlQwSFJoMThOVzN1T2ZGRWZ2Yz0iLCJyb2xlcyI6IkNVU1RPTUVSIiwiaWF0IjoxNzAxMzczMzY5LCJleHAiOjE3MDEzNzY5Njl9.OdxwtyafubrWnpCxQMnUXC2ScuP2NqJgbXIi-1DDhQM
+
+{
+  "username": "방문객",
+  "phoneNumber": "010-1111-2222",
+  "arrivalTime": "2023-11-19T15:55:00.000Z"
+}
+

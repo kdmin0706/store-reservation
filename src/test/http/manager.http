@@ -1,0 +1,78 @@
+### 회원가입 (매니저)
+POST http://localhost:8080/api/register/manager
+Content-Type: application/json
+
+{
+  "email": "manager@manager.com",
+  "password": "12345",
+  "phoneNumber": "010-1111-2222",
+  "username": "매니저"
+}
+
+### 로그인 (매니저)
+POST http://localhost:8080/api/login/manager
+Content-Type: application/json
+
+{
+  "email": "manager@manager.com",
+  "password": "12345"
+}
+
+### 회원 정보 조회 (매니저)
+GET http://localhost:8080/api/partner/info?id=1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyQG1hbmFnZXIuY29tIiwianRpIjoiZ1p5WnRqY0lzY1hRWGhxNFpCV2RZWWN3NWtiV0dmQTMwWDFTRzUrRlB5ST0iLCJyb2xlcyI6IlBBUlRORVIiLCJpYXQiOjE3MDEzNzM2MTUsImV4cCI6MTcwMTM3NzIxNX0.ZPo5YEHQxS1BffRuWEKGKAcz5rlsGi9FBQNI6-RA3z0
+
+
+### 매장 등록 (매니저)
+POST http://localhost:8080/api/store/partner/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyQG1hbmFnZXIuY29tIiwianRpIjoibkVyMWEvaEdJOUlFT0EybEM5SzN5OXY5emVwZEJVRDZDcDhNTmgzLy80az0iLCJyb2xlcyI6IlBBUlRORVIiLCJpYXQiOjE3MDEzNzQzMDksImV4cCI6MTcwMTM3NzkwOX0.2IlTg8OQIZXn7x3Tvabb9HFxHrATEaf9sWcoFw8SdA8
+
+{
+  "location": "대한민국 어딘가",
+  "managerId": 1,
+  "storeName": "store00",
+  "phoneNumber": "02-1234-5670"
+}
+
+### 매장 수정 (매니저)
+PUT http://localhost:8080/api/store/partner/update/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHVzZXIuY29tIiwianRpIjoia0FKaVRLUWl0NGlQSnhWR2RXcXNYMHVJOExwVFhJaWltT3pZNFZoazlJcz0iLCJyb2xlcyI6IkNVU1RPTUVSIiwiaWF0IjoxNzAxMzczNjM3LCJleHAiOjE3MDEzNzcyMzd9.B1gaEib2lqXohN1Kf4vBg47sP1JGmZiBZvmUDZYp_8E
+
+{
+  "storeName": "store11",
+  "location": "미국 어딘가"
+}
+
+### 매장 삭제 (매니저)
+DELETE http://localhost:8080/api/store/partner/delete/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHVzZXIuY29tIiwianRpIjoia0FKaVRLUWl0NGlQSnhWR2RXcXNYMHVJOExwVFhJaWltT3pZNFZoazlJcz0iLCJyb2xlcyI6IkNVU1RPTUVSIiwiaWF0IjoxNzAxMzczNjM3LCJleHAiOjE3MDEzNzcyMzd9.B1gaEib2lqXohN1Kf4vBg47sP1JGmZiBZvmUDZYp_8E
+
+
+### 매장 정보 (매니저)
+GET http://localhost:8080/api/store/partner/list?managerid=2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyQG1hbmFnZXIuY29tIiwianRpIjoibkVyMWEvaEdJOUlFT0EybEM5SzN5OXY5emVwZEJVRDZDcDhNTmgzLy80az0iLCJyb2xlcyI6IlBBUlRORVIiLCJpYXQiOjE3MDEzNzQzMDksImV4cCI6MTcwMTM3NzkwOX0.2IlTg8OQIZXn7x3Tvabb9HFxHrATEaf9sWcoFw8SdA8
+
+
+### 매장 예약 정보
+GET http://localhost:8080/api/reservation/partner/reservation-list/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyQG1hbmFnZXIuY29tIiwianRpIjoibkVyMWEvaEdJOUlFT0EybEM5SzN5OXY5emVwZEJVRDZDcDhNTmgzLy80az0iLCJyb2xlcyI6IlBBUlRORVIiLCJpYXQiOjE3MDEzNzQzMDksImV4cCI6MTcwMTM3NzkwOX0.2IlTg8OQIZXn7x3Tvabb9HFxHrATEaf9sWcoFw8SdA8
+
+
+### 매장 예약 (대기 -> 승인)
+PUT http://localhost:8080/api/reservation/partner/approval/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyQG1hbmFnZXIuY29tIiwianRpIjoibkVyMWEvaEdJOUlFT0EybEM5SzN5OXY5emVwZEJVRDZDcDhNTmgzLy80az0iLCJyb2xlcyI6IlBBUlRORVIiLCJpYXQiOjE3MDEzNzQzMDksImV4cCI6MTcwMTM3NzkwOX0.2IlTg8OQIZXn7x3Tvabb9HFxHrATEaf9sWcoFw8SdA8
+
+{
+  "reservationStatus": "APPROVAL"
+}
+
+### 리뷰 삭제 (매니저)
+DELETE http://localhost:8080/api/review/delete/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyQG1hbmFnZXIuY29tIiwianRpIjoicFEzcVo5QlJ5R3FVVzJXd044RTBEVnh3b0ovQWN6VmZLRjF3bFN3VENtbz0iLCJyb2xlcyI6IlBBUlRORVIiLCJpYXQiOjE3MDA3MTA0NDAsImV4cCI6MTcwMDcxNDA0MH0.LQM1XhooDWdurQICuWPehB-FOYx2ZgI3tOIbykT-7yw

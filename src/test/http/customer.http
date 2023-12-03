@@ -1,0 +1,67 @@
+### 회원가입 (회원)
+POST http://localhost:8080/api/register/customer
+Content-Type: application/json
+
+{
+  "email": "user@user.com",
+  "password": "12345",
+  "phoneNumber": "010-1111-2222",
+  "username": "방문객"
+}
+
+### 로그인 (회원)
+POST http://localhost:8080/api/login/customer
+Content-Type: application/json
+
+{
+  "email": "user@user.com",
+  "password": "12345"
+}
+
+### 회원 정보 조회 (회원)
+GET http://localhost:8080/api/customer/info?id=1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHVzZXIuY29tIiwianRpIjoidGFzUGpIdmFhTmcyUC9wWFB0WUt1dm80alB4ZUNXa1lZaURFU1FBbWZMaz0iLCJyb2xlcyI6IkNVU1RPTUVSIiwiaWF0IjoxNzAxMzY5ODU2LCJleHAiOjE3MDEzNzM0NTZ9.0R-NA2w-Hnn-_QE0jlQ7dIUflpCf1EzaSvyNJGVbe9I
+#Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHVzZXIuY29tIiwianRpIjoieG1UdGNiVlJVQmoxNDdibEZBaWF5Q0U1dXpXVzdQTG9NNDRZMzJ1WUFubz0iLCJyb2xlcyI6IkNVU1RPTUVSIiwiaWF0IjoxNzAxMzcwMDg1LCJleHAiOjE3MDEzNzM2ODV9.u9rFyX-brUcp0vImHzUR3EZGoNpsMbY_ObDu-_Wuc9Y
+
+### 매장 정보 조회
+GET http://localhost:8080/api/store/detail/store00
+Content-Type: application/json
+
+### 매장 예약 (회원)
+POST http://localhost:8080/api/reservation/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHVzZXIuY29tIiwianRpIjoibGFyN0lZZ0xCcDg3THc2M2VldUErNjQ3Z0ZVTDNvZnZNQzRNbVZSMnRpTT0iLCJyb2xlcyI6IkNVU1RPTUVSIiwiaWF0IjoxNzAxMDk1MTY3LCJleHAiOjE3MDEwOTg3Njd9.23XZ-MvxxEKY5K4__k6NXSJKDavto257Uh1qci4hagg
+
+{
+  "userId": 1,
+  "storeId": 1,
+  "reservationDate": "2023-11-19",
+  "reservationTime": "16:00:00"
+}
+
+### 리뷰 등록 (회원)
+POST http://localhost:8080/api/review/create?userid=1&storeid=1&reservationid=1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHVzZXIuY29tIiwianRpIjoibGFyN0lZZ0xCcDg3THc2M2VldUErNjQ3Z0ZVTDNvZnZNQzRNbVZSMnRpTT0iLCJyb2xlcyI6IkNVU1RPTUVSIiwiaWF0IjoxNzAxMDk1MTY3LCJleHAiOjE3MDEwOTg3Njd9.23XZ-MvxxEKY5K4__k6NXSJKDavto257Uh1qci4hagg
+
+{
+  "content": "다음에 또 구매할게요!!",
+  "rating": 5.5
+}
+
+### 리뷰 삭제(회원)
+DELETE http://localhost:8080/api/review/delete/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHVzZXIuY29tIiwianRpIjoibGFyN0lZZ0xCcDg3THc2M2VldUErNjQ3Z0ZVTDNvZnZNQzRNbVZSMnRpTT0iLCJyb2xlcyI6IkNVU1RPTUVSIiwiaWF0IjoxNzAxMDk1MTY3LCJleHAiOjE3MDEwOTg3Njd9.23XZ-MvxxEKY5K4__k6NXSJKDavto257Uh1qci4hagg
+
+
+### 리뷰 수정 (회원)
+PUT http://localhost:8080/api/review/update/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHVzZXIuY29tIiwianRpIjoibGFyN0lZZ0xCcDg3THc2M2VldUErNjQ3Z0ZVTDNvZnZNQzRNbVZSMnRpTT0iLCJyb2xlcyI6IkNVU1RPTUVSIiwiaWF0IjoxNzAxMDk1MTY3LCJleHAiOjE3MDEwOTg3Njd9.23XZ-MvxxEKY5K4__k6NXSJKDavto257Uh1qci4hagg
+
+{
+  "content": "다음에 또 구매할게요!!",
+  "rating": 2.5
+}
