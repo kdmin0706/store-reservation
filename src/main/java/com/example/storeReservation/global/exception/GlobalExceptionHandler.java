@@ -2,9 +2,9 @@ package com.example.storeReservation.global.exception;
 
 
 import com.example.storeReservation.global.dto.ErrorResponse;
-import io.jsonwebtoken.MalformedJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -21,8 +21,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ErrorResponse DataIntegrityViolationExceptionHandler(DataIntegrityViolationException e) {
+    public ErrorResponse dataIntegrityViolationExceptionHandler(DataIntegrityViolationException e) {
         log.error("DataIntegrityViolationException is occurred.", e);
+        return new ErrorResponse(INVALID_REQUEST, INVALID_REQUEST.getDescription());
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ErrorResponse usernameNotFoundExceptionHandler(UsernameNotFoundException e) {
+        log.error("UsernameNotFoundException is occurred.", e);
         return new ErrorResponse(INVALID_REQUEST, INVALID_REQUEST.getDescription());
     }
 

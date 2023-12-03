@@ -23,6 +23,7 @@ public enum ErrorCode {
     ALREADY_EXIST_USER(HttpStatus.BAD_REQUEST.value(), "이미 가입된 회원입니다."),
     ALREADY_LOGIN_USER(HttpStatus.BAD_REQUEST.value(), "이미 로그인이 되어 있는 상태입니다."),
     USER_AUTHORITY_NOT_MATCH(HttpStatus.BAD_REQUEST.value(), "사용자가 맞지 않습니다."),
+
     /**
      * store error
      */
