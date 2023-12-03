@@ -9,10 +9,10 @@
 - library : `Spring Data JPA`, `Lombok`, `Swagger`, `Jwt`
 
 ## 2️⃣ 개발 기간
-- 2023.11.12 ~ 2023.12.04
+- 2023.11.13 ~ 2023.12.04
 
 ## 3️⃣ ERD
-![store-erd](https://github.com/kdmin0706/store-reservation/assets/124044861/2e46a37f-16e3-4730-913b-72368a49d2e8)
+![image](https://github.com/kdmin0706/store-reservation/assets/124044861/074d3746-7f4f-45d7-92de-1f5d55fb8fce)
 
 ## 4️⃣ 시나리오
 - 매장 점장은 예약 서비스 앱에 상점을 등록한다(매장명, 상점 위치, 상점 설명)
@@ -31,7 +31,7 @@
 <details>
 <summary> 경로/ 파라미터 / 결과 </summary>
 
-경로 : [POST] http://localhost:8080/api/manager/register
+경로 : [POST] http://localhost:8080/api/register/manager
 
 파라미터
 
@@ -91,7 +91,7 @@
 <details>
 <summary> 경로/ 파라미터 / 결과 </summary>
 
-경로 : [POST] http://localhost:8080/api/customer/register
+경로 : [POST] http://localhost:8080/api/register/customer
 
 파라미터
 
@@ -281,7 +281,7 @@ or
 <details>
 <summary> 경로 / 파라미터 / 결과 </summary>
 
-경로 : [GET] http://localhost:8080/api/store/partner/list?managerid={id}
+경로 : [GET] http://localhost:8080/api/partner/info?id={id}
 
 결과
 ~~~
@@ -345,39 +345,29 @@ or
 
 </details>
 
-#### 3-2) 예약 변경
+#### 3-2) 예약 삭제
 <details>
 <summary> 경로 / 파라미터 / 결과 </summary>
 
-경로 : 
-
-파라미터
-~~~
-~~~
+경로 : [PUT] http://localhost:8080/api/reservation/cancel?reservationid={id}
 
 결과
 ~~~
+{
+  "reservationId": 1,
+  "username": "방문객",
+  "userPhoneNumber": "010-1111-2222",
+  "storeName": "store00",
+  "reservationStatus": "CANCELED",
+  "arrivalStatus": "READY",
+  "reservationDate": "2023-11-19",
+  "reservationTime": "16:00:00"
+}
 ~~~
 
 </details>
 
-#### 3-3) 예약 삭제
-<details>
-<summary> 경로 / 파라미터 / 결과 </summary>
-
-경로 : 
-
-파라미터
-~~~
-~~~
-
-결과
-~~~
-~~~
-
-</details>
-
-#### 3-4) 예약 조회
+#### 3-3) 예약 조회
 <details>
 <summary> 경로 / 파라미터 / 결과 </summary>
 
@@ -402,7 +392,7 @@ or
 ~~~
 </details>
 
-#### 3-5) 예약 승인 변경
+#### 3-4) 예약 승인 변경
 <details>
 <summary> 경로 / 파라미터 / 결과 </summary>
 
@@ -436,7 +426,7 @@ or
 ~~~
 </details>
 
-#### 3-6) 도착 조회
+#### 3-5) 도착 조회
 <details>
 <summary> 경로 / 파라미터 / 결과 </summary>
 
@@ -473,7 +463,7 @@ or
 </details>
 
 ### ✅ 4. 리뷰 API
-#### 4-1) 리뷰 생성
+#### 4-1) 리뷰 작성
 <details>
 <summary> 경로 / 파라미터 / 결과 </summary>
 
