@@ -41,4 +41,10 @@ public interface ReservationService {
      */
     ReservationDto updateArrival(Long reservationId, UpdateArrival.Request request);
 
+    /**
+     * 예약 취소
+     * @param reservationId : 예약 아이디
+     * @return 예약 취소 dto
+     */
+    ReservationDto cancelReservation(Long reservationId);
 }

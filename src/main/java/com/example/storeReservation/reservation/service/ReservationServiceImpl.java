@@ -26,8 +26,7 @@ import java.util.List;
 import static com.example.storeReservation.global.type.ErrorCode.*;
 import static com.example.storeReservation.reservation.type.ArrivalStatus.ARRIVED;
 import static com.example.storeReservation.reservation.type.ArrivalStatus.READY;
-import static com.example.storeReservation.reservation.type.ReservationStatus.STANDBY;
-import static com.example.storeReservation.reservation.type.ReservationStatus.USE_COMPLETED;
+import static com.example.storeReservation.reservation.type.ReservationStatus.*;
 
 @Slf4j
 @Service
@@ -124,6 +123,21 @@ public class ReservationServiceImpl implements ReservationService{
         reservation.setReservationStatus(USE_COMPLETED);
 
         log.info("예약자 도착 여부 변경 완료");
+
+        return ReservationDto.fromEntity(
+                this.reservationRepository.save(reservation));
+    }
+
+    @Override
+    @Transactional
+    public ReservationDto cancelReservation(Long reservationId) {
+        log.info("예약 상태 취소 시작");
+
+        Reservation reservation = this.reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new CustomException(RESERVATION_NOT_FOUND));
+
+        reservation.setReservationStatus(CANCELED);
+        log.info("예약 상태 취소 완료");
 
         return ReservationDto.fromEntity(
                 this.reservationRepository.save(reservation));
