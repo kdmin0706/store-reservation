@@ -1,7 +1,5 @@
 package com.example.storeReservation.auth.security;
 
-import com.example.storeReservation.global.exception.CustomException;
-import com.example.storeReservation.global.type.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
