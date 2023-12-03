@@ -55,11 +55,12 @@ public class StoreController {
     }
 
     /**
-     * 매장 관련 세부 정보
+     * 매장 관련 세부 정보 (매장 이용자가 검색 및 세부 정보 확인 가능)
      * @param name 매장 이름
      * @return 매장 정보
      */
     @GetMapping("/detail/{name}")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<?> storeDetail(@PathVariable String name) {
         return ResponseEntity.ok(this.storeService.detailStore(name));
     }

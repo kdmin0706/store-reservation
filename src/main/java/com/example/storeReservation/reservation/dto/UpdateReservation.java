@@ -18,7 +18,6 @@ public class UpdateReservation {
         private ReservationStatus reservationStatus;
     }
 
-
     @Data
     @Builder
     @NoArgsConstructor

@@ -6,6 +6,7 @@ import com.example.storeReservation.reservation.dto.UpdateArrival;
 import com.example.storeReservation.reservation.dto.UpdateReservation;
 import com.example.storeReservation.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -73,5 +74,19 @@ public class ReservationController {
         return UpdateArrival.Response.from(
                 this.reservationService.updateArrival(id, request)
         );
+    }
+
+    /**
+     * 예약 취소
+     * @param reservationId : 예약 아이디
+     * @return 예약 취소 데이터
+     */
+    @PutMapping("/cancel")
+    @PreAuthorize("hasAnyRole('CUSTOMER', 'PARTNER')")
+    public ResponseEntity<?> cancelReservation(
+            @RequestParam(name = "reservationid") Long reservationId
+    ) {
+        return ResponseEntity.ok(
+                this.reservationService.cancelReservation(reservationId));
     }
 }
