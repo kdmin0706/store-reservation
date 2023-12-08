@@ -13,5 +13,5 @@ public interface ManagerService {
     /**
      * 회원 정보 확인
      */
-    ManagerDto MemberDetail(Long userId);
+    ManagerDto memberDetail(Long userId);
 }

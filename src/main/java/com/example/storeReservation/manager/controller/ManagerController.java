@@ -33,6 +33,6 @@ public class ManagerController {
     @GetMapping("/partner/info")
     @PreAuthorize("hasRole('PARTNER')")
     public ResponseEntity<?> getManagerInfo(@RequestParam("id") Long id) {
-        return ResponseEntity.ok(this.managerService.MemberDetail(id));
+        return ResponseEntity.ok(this.managerService.memberDetail(id));
     }
 }

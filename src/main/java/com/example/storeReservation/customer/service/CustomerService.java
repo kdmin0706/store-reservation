@@ -13,5 +13,5 @@ public interface CustomerService {
     /**
      * 회원 정보 확인
      */
-    CustomerDto MemberDetail(Long userId);
+    CustomerDto memberDetail(Long userId);
 }

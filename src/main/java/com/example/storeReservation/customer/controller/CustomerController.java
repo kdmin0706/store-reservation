@@ -33,6 +33,6 @@ public class CustomerController {
     @GetMapping("/customer/info")
     @PreAuthorize("hasAnyRole('CUSTOMER', 'PARTNER')")
     public ResponseEntity<?> getCustomerInfo(@RequestParam("id") Long id) {
-        return ResponseEntity.ok(this.customerService.MemberDetail(id));
+        return ResponseEntity.ok(this.customerService.memberDetail(id));
     }
 }

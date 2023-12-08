@@ -43,7 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto MemberDetail(Long userId) {
+    public CustomerDto memberDetail(Long userId) {
         Customer customer = this.customerRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 

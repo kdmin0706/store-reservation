@@ -43,7 +43,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public ManagerDto MemberDetail(Long userId) {
+    public ManagerDto memberDetail(Long userId) {
         Manager manager = this.managerRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(MANAGER_NOT_FOUND));
 
