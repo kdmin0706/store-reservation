@@ -12,7 +12,7 @@
 - 2023.11.13 ~ 2023.12.04
 
 ## 3️⃣ ERD
-![image](https://github.com/kdmin0706/store-reservation/assets/124044861/074d3746-7f4f-45d7-92de-1f5d55fb8fce)
+![image](https://github.com/kdmin0706/store-reservation/assets/124044861/c7a89ca5-e891-4d05-bb8d-cd941490d6d0)
 
 ## 4️⃣ 시나리오
 - 매장 점장은 예약 서비스 앱에 상점을 등록한다(매장명, 상점 위치, 상점 설명)
