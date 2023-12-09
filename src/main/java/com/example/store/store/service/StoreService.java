@@ -9,7 +9,7 @@ import java.util.List;
 public interface StoreService {
     StoreDto createStore(CreateStore.Request request);
 
-    void deleteStore(Long id);
+    void deleteStore(Long managerId, Long storeId);
 
     StoreDto updateStore(Long id, UpdateStore.Request request);
 

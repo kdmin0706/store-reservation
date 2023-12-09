@@ -24,9 +24,11 @@ public enum ErrorCode {
     ALREADY_LOGIN_USER(HttpStatus.BAD_REQUEST.value(), "이미 로그인이 되어 있는 상태입니다."),
     USER_AUTHORITY_NOT_MATCH(HttpStatus.BAD_REQUEST.value(), "사용자가 맞지 않습니다."),
 
+
     /**
      * store error
      */
+    STORE_NOT_MATCH_MANAGER(HttpStatus.BAD_REQUEST.value(), "매니저 본인의 매장이 아닙니다."),
     STORE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "매장을 찾을 수 없습니다."),
     ALREADY_EXIST_STORE(HttpStatus.BAD_REQUEST.value(), "이미 사용 중인 매장 이름입니다."),
 

@@ -42,15 +42,21 @@ public class StoreController {
         return UpdateStore.Response.from(this.storeService.updateStore(id, request));
     }
 
+
     /**
      * 매장 삭제
-     * @param id: 매장 아이디
-     * @return 매장 삭제 완료 Message
+     *
+     * @param managerId : 매니저 아이디
+     * @param storeId : 매장 아이디
+     * @return : 매장 삭제 완료 msg
      */
-    @DeleteMapping("/partner/delete/{id}")
+    @DeleteMapping("/partner/delete")
     @PreAuthorize("hasRole('PARTNER')")
-    public ResponseEntity<?> deleteStore(@PathVariable Long id) {
-        this.storeService.deleteStore(id);
+    public ResponseEntity<?> deleteStore(
+            @RequestParam("id") Long managerId,
+            @RequestParam("store") Long storeId
+    ) {
+        this.storeService.deleteStore(managerId, storeId);
         return ResponseEntity.ok("매장 삭제가 완료되었습니다.");
     }
 

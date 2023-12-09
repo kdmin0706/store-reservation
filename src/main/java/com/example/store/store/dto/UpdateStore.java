@@ -13,6 +13,9 @@ public class UpdateStore {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Request {
+
+        private Long managerId;
+
         @NotBlank
         private String storeName;
 

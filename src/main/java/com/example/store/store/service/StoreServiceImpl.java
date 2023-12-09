@@ -54,14 +54,24 @@ public class StoreServiceImpl implements StoreService {
 
     /**
      * 등록되어있는 매장 삭제
-     * @param id: 삭제하려는 매장 아이디
+     *
+     * @param managerId : 매니저 아이디
+     * @param storeId   : 삭제하려는 매장 아이디
      */
     @Override
     @Transactional
-    public void deleteStore(Long id) {
+    public void deleteStore(Long managerId, Long storeId) {
         log.info("매장 정보 삭제");
-        this.storeRepository.delete(this.storeRepository.findById(id)
-                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND)));
+
+        Store store = this.storeRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+
+        //매니저 본인의 매장인지 확인
+        if (!store.getManager().getId().equals(managerId)) {
+            throw new CustomException(STORE_NOT_MATCH_MANAGER);
+        }
+
+        this.storeRepository.delete(store);
     }
 
     /**
@@ -80,8 +90,9 @@ public class StoreServiceImpl implements StoreService {
                 .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
 
         //매니저 본인의 매장인지 확인
-        this.managerRepository.findById(request.getManagerId())
-                        .orElseThrow(() -> new CustomException(STORE_NOT_MATCH_MANAGER));
+        if (!store.getManager().getId().equals(request.getManagerId())) {
+            throw new CustomException(STORE_NOT_MATCH_MANAGER);
+        }
 
         store.setStoreName(request.getStoreName());
         store.setLocation(request.getLocation());
