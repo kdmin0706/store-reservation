@@ -3,7 +3,6 @@ package com.example.store.reservation.service;
 import com.example.store.customer.entity.Customer;
 import com.example.store.customer.repository.CustomerRepository;
 import com.example.store.global.exception.CustomException;
-import com.example.store.manager.entity.Manager;
 import com.example.store.manager.repository.ManagerRepository;
 import com.example.store.reservation.dto.CreateReservation;
 import com.example.store.reservation.dto.ReservationDto;

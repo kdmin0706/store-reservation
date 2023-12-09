@@ -29,7 +29,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
      * @return ReservationList
      */
     @Query(" SELECT r FROM Reservation r " +
-            " WHERE r.manager.id = :id " +
+            " WHERE r.store.manager.id = :id " +
             " ORDER BY r.reservationDate " )
     List<Reservation> findAllByManagerReservation(@Param("id") Long id);
 }

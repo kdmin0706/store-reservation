@@ -2,7 +2,6 @@ package com.example.store.reservation.entity;
 
 import com.example.store.customer.entity.Customer;
 import com.example.store.global.entity.BaseEntity;
-import com.example.store.manager.entity.Manager;
 import com.example.store.reservation.type.ArrivalStatus;
 import com.example.store.reservation.type.ReservationStatus;
 import com.example.store.store.entity.Store;
