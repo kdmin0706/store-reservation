@@ -45,9 +45,6 @@ public class ReservationServiceImpl implements ReservationService{
         Store store = this.storeRepository.findById(request.getStoreId())
                 .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
 
-        Manager manager = this.managerRepository.findById(store.getManager().getId())
-                .orElseThrow(() -> new CustomException(MANAGER_NOT_FOUND));
-
         Customer customer = this.customerRepository.findById(request.getUserId())
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
@@ -62,7 +59,6 @@ public class ReservationServiceImpl implements ReservationService{
 
         Reservation reservation = this.reservationRepository.save(Reservation.builder()
                 .customer(customer)
-                .manager(manager)
                 .store(store)
                 .reservationStatus(STANDBY)
                 .arrivalStatus(READY)

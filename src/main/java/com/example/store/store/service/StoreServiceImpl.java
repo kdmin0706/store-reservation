@@ -66,7 +66,6 @@ public class StoreServiceImpl implements StoreService {
 
     /**
      * 매장 위치 또는 이름 변경
-     *
      * @param id : 정보를 변경하고 싶은 매장의 아이디
      * @param request : 변경하려는 매장 위치와 매장 이름을 갖는 변수
      * @return 매장 위치나 매장 이름이 변경
@@ -76,8 +75,13 @@ public class StoreServiceImpl implements StoreService {
     public StoreDto updateStore(Long id, UpdateStore.Request request) {
         log.info("매장 정보 변경");
 
+        //매장이 있는 지 확인
         Store store = this.storeRepository.findById(id)
                 .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+
+        //매니저 본인의 매장인지 확인
+        this.managerRepository.findById(request.getManagerId())
+                        .orElseThrow(() -> new CustomException(STORE_NOT_MATCH_MANAGER));
 
         store.setStoreName(request.getStoreName());
         store.setLocation(request.getLocation());

@@ -27,13 +27,6 @@ public class Reservation extends BaseEntity {
     private Long id;
 
     /**
-     * 매니저 아이디
-     */
-    @ManyToOne
-    @JoinColumn(name = "manager_id")
-    private Manager manager;
-
-    /**
      * 유저 아이디
      */
     @ManyToOne
